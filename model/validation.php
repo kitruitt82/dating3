@@ -57,13 +57,16 @@ function validInterest()
 {
     global $f3;
     $isValid = true;
+
     if (!validIndoorInterest($f3->get('indoor'))) {
+        echo "Here I am again";
+        //var_dump($f3->get('indoor'));
         $isValid = false;
-        $f3->set("errors['indoor']", "Please select a valid outdoor interests");
+        $f3->set("errors['indoor']", "No indoor interests were made");
     }
     if (!validOutdoorInterest($f3->get('outdoor'))) {
         $isValid = false;
-        $f3->set("errors['outdoor']", "Please select a valid indoor interests");
+        $f3->set("errors['outdoor']", "No outdoor interests were made");
     }
     return $isValid;
 }
@@ -104,13 +107,14 @@ function validEmail($email)
 function validIndoorInterest($indoor)
 {
     global $f3;
-    if(empty($indoor))
+   if(empty($indoor))
     {
+        echo "im here";
         return true;
     }
     foreach($indoor as $interest)
     {
-        if(!in_array($interest, $f3->get('indoor')))
+        if(!in_array($interest, $f3->get('indoorValid')))
         {
             return false;
         }
@@ -121,17 +125,18 @@ function validIndoorInterest($indoor)
 function validOutdoorInterest($outdoor)
 {
     global $f3;
+
     if(empty($outdoor))
     {
+        echo "im here";
         return true;
     }
     foreach($outdoor as $interest)
     {
-        if(!in_array($interest, $f3->get('outdoor')))
+        if(!in_array($interest, $f3->get('outdoorValid')))
         {
             return false;
         }
     }
     return true;
 }
-

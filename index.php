@@ -79,13 +79,13 @@ $f3->route('GET|POST /profile', function($f3)
         $email = $_POST['email'];
         $state = $_POST['state'];
         $seeking = $_POST['seeking'];
-        $bio = $_POST['bio'];
+        $bio = $_POST['biography'];
 
         //add data to hive
         $f3->set('email',$email);
         $f3->set('state',$state);
         $f3->set('seeking',$seeking);
-        $f3->set('bio',$bio);
+        $f3->set('biography',$bio);
 
         //If data is valid
         if (validForm2()) {
@@ -120,9 +120,6 @@ $f3->route('GET|POST /profile', function($f3)
                 $_SESSION['biography']= $bio;
             }
 
-
-
-
             $f3->reroute('/interests');
 
         }
@@ -147,33 +144,21 @@ $f3->route('GET|POST /interests',function($f3)
         //If data is valid
         if(validInterest())
         {
+            echo "HEY!";
             //add data to session
-
-            //No selections were made, display message
-            if(empty($indoor))
-            {
-                $_SESSION['indoor']= "No indoor interests selected ";
-
-            }
-            else{
+            if(!empty($indoor)){
                 $_SESSION['indoor']=implode(", " , $indoor);
             }
 
-            //No selections were made
-            if(empty($outdoor)){
-                $_SESSION['outdoor'] ="No outdoor interests were selected";
-            }
-            //display selections
-            else{
+            if(!empty($outdoor))
+            {
                 $_SESSION['outdoor']=implode(", " , $outdoor);
-
             }
             //go to next page
             $f3->reroute('/confirmation');
         }
 
     }
-
     $view = new Template();
     echo $view->render('views/interests.html');
 });

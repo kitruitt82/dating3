@@ -37,14 +37,14 @@
                 <div class="indoor">
                     <label class="indoor">Indoor Interests</label>
                 </div>
-                <check if="{{ @errors['outdoor'] && @errors['indoor'] }}">
+                <check if="{{ @errors['indoor'] }}">
                     <span class="err">{{ @errors['indoor'] }}</span>
                 </check><br>
-                <repeat group="{{ @indoor }}" value="{{ @indoorInterest}}">
+                <repeat group="{{ @indoorValid }}" value="{{ @indoorInterest}}">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" id="{{ @indoorInterest }}" type="checkbox" name="indoor[]"
                                value="{{@indoorInterest}}"
-                        <check if="{{ @indoorInterest == @indoor }}">
+                        <check if="{{ @indoorInterest == @indoorValid }}">
                             checked="checked"
                         </check>>
                         <label class="interests form-check-label" for="{{ @indoorInterest }}">{{ trim(@indoorInterest) }}</label>
@@ -55,12 +55,12 @@
                 </div>
                 <check if="{{ @errors['outdoor'] }}">
                     <span class="err">{{ @errors['outdoor'] }}</span>
-                </check><br>
-                <repeat group="{{ @outdoor }}" value="{{ @outdoorInterest }}">
+                </check>
+                <repeat group="{{ @outdoorValid }}" value="{{ @outdoorInterest }}">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" id="{{ @outdoorInterest }}" type="checkbox" name="outdoor[]"
                         value="{{ @outdoorInterest  }}"
-                        <check if="{{ !empty(@outdoor) && in_array($_POST['outdoor'] , @outdoor) }}">
+                        <check if="{{ !empty(@outdoorInterest) && in_array($_POST['outdoor'] , @outdoorValid) }}">
                             checked="checked"
                         </check>>
                         <label class="interests form-check-label " for="{{ @outdoorInterest }}">{{ trim( @outdoorInterest ) }}</label>
