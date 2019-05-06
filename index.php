@@ -94,8 +94,9 @@ $f3->route('GET|POST /profile', function($f3)
             $_SESSION['bio']= $bio;
             $_SESSION['email']= $email;
 
+            $f3->reroute('/interests');
+
         }
-        $f3->reroute('/interests');
     }
     $view = new Template();
     echo $view->render('views/form2.html');
@@ -117,33 +118,34 @@ $f3->route('GET|POST /interests',function($f3)
         //If data is valid
         if(validInterest())
         {
+            //add data to session
+
             //No selections were made, display message
             if(empty($indoor))
             {
-                $_SESSION['indoor']= ["No indoor interests selected "];
-                $_SESSION['indoor'] = implode(" ",$_SESSION['indoor']);
+                $_SESSION['indoor']= "No indoor interests selected ";
 
             }
-            //display selections
             else{
                 $_SESSION['indoor']=implode(", " , $indoor);
             }
 
             //No selections were made
             if(empty($outdoor)){
-
-                $_SESSION['outdoor'] =["No outdoor interests were selected"];
-                $_SESSION['indoor'] = implode(" ",$_SESSION['outdoor']);
+                $_SESSION['outdoor'] ="No outdoor interests were selected";
             }
             //display selections
             else{
                 $_SESSION['outdoor']=implode(", " , $outdoor);
+
             }
+            $f3->reroute('/confirmation');
         }
+
     }
     //go to next page
     $view = new Template();
-    echo $view->render('views/summary.html');
+    echo $view->render('views/interests.html');
 });
 
 $f3->route('GET /confirmation', function()
