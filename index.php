@@ -28,6 +28,7 @@ $f3->route('GET /', function()
 
 $f3->route('GET /home', function()
 {
+    $_SESSION = [];
     $view = new Template();
     echo $view->render('views/home.html');
 
@@ -154,11 +155,12 @@ $f3->route('GET|POST /interests',function($f3)
             {
                 $_SESSION['outdoor']=implode(", " , $outdoor);
             }
+
             //go to next page
             $f3->reroute('/confirmation');
         }
-
     }
+
     $view = new Template();
     echo $view->render('views/interests.html');
 });
