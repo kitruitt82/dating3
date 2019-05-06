@@ -1,5 +1,10 @@
 <?php
-
+/*
+Kat Truitt
+IT328 Assignment Dating
+May 4, 2019
+index.php-> renders the routes functions, sessions and etc. for the dating websites
+*/
 function validForm1()
 {
     global $f3;
@@ -54,11 +59,11 @@ function validInterest()
     $isValid = true;
     if (!validIndoorInterest($f3->get('indoor'))) {
         $isValid = false;
-        $f3->set("errors['interest']", "Please select a valid outdoor interests");
+        $f3->set("errors['indoor']", "Please select a valid outdoor interests");
     }
     if (!validOutdoorInterest($f3->get('outdoor'))) {
         $isValid = false;
-        $f3->set("errors['interest']", "Please select a valid indoor interests");
+        $f3->set("errors['outdoor']", "Please select a valid indoor interests");
     }
     return $isValid;
 }
@@ -75,8 +80,8 @@ function validLName($ln)
 
 function validGender($gender)
 {
-    global $f3;
-    return !(empty($gender)) && in_array($gender, $f3->get('genders'));
+
+    return !(empty($gender));
 }
 
 function validAge($age)
