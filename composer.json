@@ -1,0 +1,12 @@
+{
+  "name": "ktruittg/it328/dating3",
+  "authors": [
+    {
+      "name": "Kat Truitt",
+      "email": "ktruitt@mail.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
