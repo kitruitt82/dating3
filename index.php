@@ -53,7 +53,6 @@ $f3->route('GET|POST /personal', function($f3)
         $f3->set('phone',$tel);
 
         //If data is valid
-
         if (validForm1()) {
             $_SESSION['fname']= $fn;
             $_SESSION['lname']= $ln;
@@ -88,15 +87,15 @@ $f3->route('GET|POST /profile', function($f3)
         $f3->set('seeking',$seeking);
         $f3->set('bio',$bio);
 
-        $_SESSION['state']= $state;
-        $_SESSION['seeking']= $seeking;
-        $_SESSION['bio']= $bio;
         //If data is valid
         if (validForm2()) {
+            $_SESSION['state']= $state;
+            $_SESSION['seeking']= $seeking;
+            $_SESSION['bio']= $bio;
             $_SESSION['email']= $email;
 
-            $f3->reroute('/interests');
         }
+        $f3->reroute('/interests');
     }
     $view = new Template();
     echo $view->render('views/form2.html');
@@ -115,39 +114,43 @@ $f3->route('GET|POST /interests',function($f3)
         $f3->set('outdoor', $outdoor);
         $f3->set('indoor', $indoor);
 
+        //If data is valid
         if(validInterest())
         {
-
+            //No selections were made, display message
             if(empty($indoor))
             {
                 $_SESSION['indoor']= ["No indoor interests selected "];
                 $_SESSION['indoor'] = implode(" ",$_SESSION['indoor']);
 
             }
+            //display selections
             else{
                 $_SESSION['indoor']=implode(", " , $indoor);
             }
+
+            //No selections were made
             if(empty($outdoor)){
 
                 $_SESSION['outdoor'] =["No outdoor interests were selected"];
                 $_SESSION['indoor'] = implode(" ",$_SESSION['outdoor']);
             }
+            //display selections
             else{
                 $_SESSION['outdoor']=implode(", " , $outdoor);
             }
-
         }
     }
+    //go to next page
     $view = new Template();
     echo $view->render('views/summary.html');
 });
 
 $f3->route('GET /confirmation', function()
 {
-
+    //display form data
     $view = new Template();
     echo $view->render('views/summary.html');
-
 });
 //Run Fat-free
 $f3->run();

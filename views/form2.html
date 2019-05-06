@@ -52,15 +52,11 @@
                         </div>
                         <div class="form-group">
                             <label>Seeking</label>
-                            <check if="{{ @errors['seeking'] }}">
-                                <span class="err">{{ @errors['seeking'] }}</span>
-                            </check><br>
-
                             <repeat group="{{ @seeking }}" value="{{ @seekingOption }}">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="{{ @seekingOption }}" class="custom-control-input"
                                            name="seeking" value="{{ @seekingOption }}"
-                                    <check if=" {{ !empty(@seekingOption) && @seekingOption == @seeking  }}">
+                                    <check if=" {{ @seekingOption == @seeking  }}">
                                         checked="checked"
                                     </check>>
                                     <label class="custom-control-label" for="{{ @seekingOption }}">{{ @seekingOption }}</label>

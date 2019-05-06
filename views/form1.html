@@ -65,8 +65,7 @@
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="{{ @genderOption }}" class="custom-control-input"
                                                name="gender" value="{{ @genderOption }}"
-                                               <check if=" {{ !empty(@genderOption) &&
-                                               in_array( @genderOption, @genders)  }}">
+                                               <check if=" {{ @genderOption == @gender}}">
                                                     checked="checked"
                                                </check>>
                                         <label class="custom-control-label" for="{{ @genderOption }}">
