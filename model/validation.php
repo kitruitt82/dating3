@@ -62,11 +62,11 @@ function validInterest()
         echo "Here I am again";
         //var_dump($f3->get('indoor'));
         $isValid = false;
-        $f3->set("errors['indoor']", "No indoor interests were made");
+        $f3->set("errors['indoor']", "Invalid selection(s) were made");
     }
     if (!validOutdoorInterest($f3->get('outdoor'))) {
         $isValid = false;
-        $f3->set("errors['outdoor']", "No outdoor interests were made");
+        $f3->set("errors['outdoor']", "Invalid selection(s) were made");
     }
     return $isValid;
 }
