@@ -88,12 +88,13 @@ $f3->route('GET|POST /profile', function($f3)
         $f3->set('seeking',$seeking);
         $f3->set('bio',$bio);
 
+        $_SESSION['state']= $state;
+        $_SESSION['seeking']= $seeking;
+        $_SESSION['bio']= $bio;
         //If data is valid
-        if (validForm()) {
+        if (validForm2()) {
             $_SESSION['email']= $email;
-            $_SESSION['state']= $state;
-            $_SESSION['seeking']= $seeking;
-            $_SESSION['age']= $bio;
+
             $f3->reroute('/interests');
         }
     }
@@ -107,19 +108,40 @@ $f3->route('GET|POST /interests',function($f3)
     if(!empty($_POST))
     {
         //get the data
-        $interest = $_POST['interests'];
+        $outdoor = $_POST['outdoor'];
+        $indoor = $_POST['indoor'];
 
         //set the data
-        $f3->set('interests', $interest);
+        $f3->set('outdoor', $outdoor);
+        $f3->set('indoor', $indoor);
 
-        if(validForm())
+        if(validInterest())
         {
-            $_SESSION['interests'] = $interest;
-            implode(", " , $interest);
+
+            if(empty($indoor))
+            {
+                $_SESSION['indoor'] = "No indoor interests selected";
+
+            }
+            else {
+
+                implode(", " , $indoor);
+            }
+            if(empty($outdoor ))
+            {
+                $_SESSION['outdoor'] =  "No outdoor interests selected" ;
+
+            }
+            else{
+                implode(", " , $outdoor);
+
+            }
+
+            $f3->reroute('/confirmation');
         }
     }
     $view = new Template();
-    echo $view->render('views/summary.html');
+    echo $view->render('views/interests.html');
 });
 
 $f3->route('GET /confirmation', function()

@@ -51,11 +51,16 @@ function validForm2()
 function validInterest()
 {
     global $f3;
-    $isValid =true;
-    if(!validInterest($f3->get('interests')))
-    {
-
+    $isValid = true;
+    if (!validIndoorInterest($f3->get('indoor'))) {
+        $isValid = false;
+        $f3->set("errors['interest']", "Please select a valid outdoor interests");
     }
+    if (!validOutdoorInterest($f3->get('outdoor'))) {
+        $isValid = false;
+        $f3->set("errors['interest']", "Please select a valid indoor interests");
+    }
+    return $isValid;
 }
 
 function validFName($fn)
@@ -87,6 +92,41 @@ function validPhone($tel)
 function validEmail($email)
 {
 
-    return !empty($email) && FILTER_VALIDATE_EMAIL; // returns TRUE
+    return !empty($email) && FILTER_VALIDATE_EMAIL;
 
 }
+
+function validIndoorInterest($indoor)
+{
+    global $f3;
+    if(empty($indoor))
+    {
+        return true;
+    }
+    foreach($indoor as $interest)
+    {
+        if(!in_array($interest, $f3->get('indoor')))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+function validOutdoorInterest($outdoor)
+{
+    global $f3;
+    if(empty($outdoor))
+    {
+        return true;
+    }
+    foreach($outdoor as $interest)
+    {
+        if(!in_array($interest, $f3->get('outdoor')))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+

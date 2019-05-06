@@ -35,23 +35,29 @@
                 </div>
                 <hr class="my-4">
                 <div class="indoor">
-                    <label class="indoor">In-door Interests</label>
+                    <label class="indoor">Indoor Interests</label>
                 </div>
-                <repeat group="{{ @indoor }}" value="{{ @item }}">
+                <repeat group="{{ @indoor }}" value="{{ @indoorInterest}}">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" id="{{ @item }}" type="checkbox" name="interests[]"
-                               value="{{ @item }}" >
-                        <label class="interests form-check-label" for="{{ @item }}">{{ trim(@item) }}</label>
+                        <input class="form-check-input" id="{{ @indoorInterest }}" type="checkbox" name="indoor[]"
+                               value="{{@indoorInterest}}"
+                        <check if="{{ !empty($_POST['indoor']) && in_array(@indoorInterest , $_POST['indoor']) }}">
+                            checked="checked"
+                        </check>>
+                        <label class="interests form-check-label" for="{{ @indoorInterest }}">{{ trim(@indoorInterest) }}</label>
                     </div>
                 </repeat>
                 <div class="outdoor">
                     <label class="outdoor">Out-door Interests</label>
                 </div>
-                <repeat group="{{ @outdoor }}" value="{{ @item2 }}">
+                <repeat group="{{ @outdoor }}" value="{{ @outdoorInterest }}">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" id="{{ @item2 }}" type="checkbox" name="interests[]"
-                        value="{{ @item2 }}" >
-                        <label class="interests form-check-label " for="{{ @item2 }}">{{ trim(@item2) }}</label>
+                        <input class="form-check-input" id="{{ @outdoorInterest }}" type="checkbox" name="outdoor[]"
+                        value="{{ @outdoorInterest  }}"
+                        <check if="{{ !empty($_POST['outdoor']) && in_array(@outdoorInterest , $_POST['outdoor']) }}">
+                            checked="checked"
+                        </check>>
+                        <label class="interests form-check-label " for="{{ @outdoorInterest }}">{{ trim( @outdoorInterest ) }}</label>
                     </div>
                 </repeat>
                 <div  class="next">
