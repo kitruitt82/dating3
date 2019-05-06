@@ -120,28 +120,26 @@ $f3->route('GET|POST /interests',function($f3)
 
             if(empty($indoor))
             {
-                $_SESSION['indoor'] = "No indoor interests selected";
-
-            }
-            else {
-
-                implode(", " , $indoor);
-            }
-            if(empty($outdoor ))
-            {
-                $_SESSION['outdoor'] =  "No outdoor interests selected" ;
+                $_SESSION['indoor']= ["No indoor interests selected "];
+                $_SESSION['indoor'] = implode(" ",$_SESSION['indoor']);
 
             }
             else{
-                implode(", " , $outdoor);
+                $_SESSION['indoor']=implode(", " , $indoor);
+            }
+            if(empty($outdoor)){
 
+                $_SESSION['outdoor'] =["No outdoor interests were selected"];
+                $_SESSION['indoor'] = implode(" ",$_SESSION['outdoor']);
+            }
+            else{
+                $_SESSION['outdoor']=implode(", " , $outdoor);
             }
 
-            $f3->reroute('/confirmation');
         }
     }
     $view = new Template();
-    echo $view->render('views/interests.html');
+    echo $view->render('views/summary.html');
 });
 
 $f3->route('GET /confirmation', function()
