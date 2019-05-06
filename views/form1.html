@@ -1,0 +1,120 @@
+<!--
+    Kat Truitt
+    IT328 Assignment Dating
+    April 19,2019
+    form2.html-> Displays form1 inputs
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Information</title>
+    <!-- fontawesome link to get  set glyphicon for website, as well as BootStrap maxcdn, stack path, JQuery and
+    possibly more 2 more script.javascript assignments-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- css.css for additional styling and layout-->
+    <link href="styles/styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div id="topNav">
+    <!-- added fixed navbar to footer-->
+    <nav class="navbar fixed-top navbar-light bg-light">
+        <a class="navbar-brand" href="home">Dating Connection<i class="fas fa-home"></i></a>
+    </nav>
+</div>
+<div class="container-fluid">
+    <div class="border rounded profile">
+        <div class="personalInformation form-group row">
+            <h2>Personal Information</h2>
+            <hr class="my-4">
+                <form action="#" method="POST">
+                    <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="fname">First Name</label>
+                                <input class="form-control" id="fname" type="text" name="fname" value="{{ @fname }}">
+                            <check if="{{ @errors['fname'] }}">
+                                <span class="err">{{ @errors['fname'] }}</span>
+                            </check><br>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last Name</label>
+                            <input class="form-control" id="lname" type="text" name="lname" value="{{ @lname }}">
+                            <check if="{{ @errors['lname'] }}">
+                                <span class="err">{{ @errors['lname'] }}</span>
+                            </check><br>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input class="form-control" id="age" type="text" name="age" value="{{ @age }}">
+                            <check if=" {{ @errors['age'] }} ">
+                                <span class="err">{{ @errors['age'] }}</span>
+                            </check>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <check if="{{ @errors['gender'] }}">
+                                <span class="err">{{ @errors['gender'] }}</span>
+                            </check><br>
+
+                                <repeat group="{{ @genders }}" value="{{ @genderOption }}">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="{{ @genderOption }}" class="custom-control-input"
+                                               name="gender" value="{{ @genderOption }}"
+                                               <check if=" {{ !empty(@genderOption) &&
+                                               in_array( @genderOption, @genders)  }}">
+                                                    checked="checked"
+                                               </check>>
+                                        <label class="custom-control-label" for="{{ @genderOption }}">
+                                            {{ @genderOption }}</label>
+                                    </div>
+                                </repeat>
+
+                        </div>
+                        <div class="form-group">
+                            <check if="{{ @errors['phone'] }}">
+                                <span class="err">{{ @errors['phone'] }}</span>
+                            </check><br>
+                            <label for="phone">Phone</label>
+                            <input class="form-control" type="tel" name="phone" id="phone" value="{{ @phone }}">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group row">
+                            <div class="card card-body">
+                                <p class="card-text"><strong>Note:</strong> All information entered is protected by our
+                                    <a href="#">privacy policy</a>. Profile information can only be viewed by others with
+                                    your permission</p>
+                            </div>
+                        </div>
+                        <div id="next1" class="form-group">
+                            <input class="btn btn-primary" type="submit" value="Next >" />
+                        </div>
+                    </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Fixed position footer, author name and year -->
+<nav id="navBottom" class="navbar fixed-bottom navbar-light bg-light">
+    <a class="navbar-brand" href="#">Kat Truitt &copy;2019</a>
+</nav>
+<!--Additional script links -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

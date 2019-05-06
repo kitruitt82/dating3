@@ -1,0 +1,68 @@
+<!--
+    Kat Truitt
+    IT328 Assignment Dating
+    April 11,2019
+    home.html-> Displays values from forms to results page.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- character set to UTF-8 -->
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- http url title heading set -->
+    <title>Dating</title>
+    <!-- fontawesome link to get  set glyphicon for website, as well as BootStrap maxcdn, stack path, JQuery and
+     possibly more 2 more script.javascript assignments-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- css.css for additional styling and layout-->
+    <link href="styles/styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div id="topNav">
+    <!-- added fixed navbar to footer-->
+    <nav class="navbar fixed-top navbar-light bg-light">
+        <a class="navbar-brand" href="home">Dating Connection<i class="fas fa-home"></i></a>
+    </nav>
+</div>
+<div class="container-fluid">
+    <div class="border rounded profile">
+        <div class="row">
+            <div id ="list" class="col-sm-6">
+                <ul>
+                    <li class="list-group-item">Name: {{ @SESSION.fname }} {{ @SESSION.lname}}</li>
+                    <li class="list-group-item">Gender: {{ @SESSION.gender }}</li>
+                    <li class="list-group-item">Age: {{ @SESSION.age }}</li>
+                    <li class="list-group-item">Phone: {{ @SESSION.phone }}</li>
+                    <li class="list-group-item">Email: {{ @SESSION.email}}</li>
+                    <li class="list-group-item">State: {{ @SESSION.state }}</li>
+                    <li class="list-group-item">Seeking: {{ @SESSION.genderSeeking }} </li>
+                    <li class="list-group-item">Interests: {{@SESSION.interests}} </li>
+                </ul>
+            </div>
+            <div class="col-sm-6 clearfix ">
+                <img class="img-fluid rounded mx-auto" id="darth" src="images/darth-dating.png" alt="Darth Icon"/>
+                <h4>
+                    Biography
+                </h4>
+                <p>{{ @SESSION.biography }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" id="contact" type="submit" name="submit" value="Contact Me!"/>
+        </div>
+    </div>
+</div>
+
+
+<!-- Fixed position footer, author name and year -->
+<nav id="navBottom" class="navbar fixed-bottom navbar-light bg-light">
+    <a class="navbar-brand" href="#">Kat Truitt &copy;2019</a>
+</nav>
+</body>
+</html>
