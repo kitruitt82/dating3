@@ -1,0 +1,204 @@
+/*
+    Kat Truitt
+    IT328 Dating Assignment
+    10APR2019
+    styles.css -> additional CSS for layout in addition to BootStrap
+*/
+
+html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+/* Keeps the divs below fixed-top navbar and above fixed-bottom navbar, unless content
+needs to be scrolled*/
+body {
+    padding:56px 0 56px 0 ;
+    scroll-behavior: smooth;
+}
+
+/* image layout, adjust size to fit to div element*/
+.clearfix
+{
+    overflow: auto;
+}
+
+/* button display and text-alignment */
+#buttonContainer
+{
+
+    text-align:center;
+    margin-bottom:10px;
+}
+
+/* CSS layout to keep button centered in the div*/
+#profile
+{
+    margin-left:38%;
+    padding-top:5px;
+    vertical-align: top;
+    display:inline-block;
+}
+
+
+/* image div padding set to keep space between columns */
+#picture
+{
+    padding-top:20px;
+    padding-left:30px;
+    text-align: right;
+}
+
+/* Image margins are set to 20px to give space between elements*/
+img
+{
+    padding-top:0;
+    margin:20px;
+}
+
+.word
+{
+    padding:20px 10px 20px 10px;
+
+    margin-bottom:0;
+}
+
+/* Centers the heading above the block-quotes centered*/
+.h6
+{
+    margin-left:20px;
+    margin-right:20px;
+}
+
+
+/*CSS style and layout set to small uppercase and italicized font */
+blockquote
+{
+    margin-left:20px;
+    margin-right:20px;
+    line-height: 1;
+    font-style: italic;
+    font-size:small;
+    font-variant: small-caps;
+}
+
+/*blockquote style is addressed without fatally destroying my page */
+cite
+{
+    font-style: italic;
+    font-variant: small-caps;
+    font-size:small;
+}
+
+/*Sets font Times New Roman*/
+#intro
+{
+    font-family: "Times New Roman", Times, serif;
+}
+
+
+/* Sets text area to scrollable*/
+#biography
+{
+    overflow-y: scroll;
+}
+
+.container-fluid
+{
+    border-color: #f0f0f0 !important;
+    padding:20px;
+    margin:20px;
+}
+
+
+/* form1.html styles and layout */
+.personalInformation
+{
+    margin:5px 5px 5px 25px;
+    padding:10px;
+}
+
+.err
+{
+    color:red;
+}
+
+
+.radioF
+{
+    margin-top:5px;
+    margin-left:20px !important;
+    text-align: justify !important;
+
+}
+
+.card-body
+{
+    margin:35px 10px 10px 10px;
+    padding:10px;
+    text-align-last: center;
+    background-color:gainsboro;
+}
+
+#next1
+{
+    margin-left:80%;
+    margin-top:65%;
+}
+
+/*Interest page layout*/
+.interestContainer
+{
+    margin:10px 40px 10px 40px;
+
+    text-align: left;
+}
+
+.titleInterest
+{
+    margin-left:0;
+    margin-right:20px;
+}
+
+.indoor,.outdoor
+{
+    margin:10px 0 10px 0;
+}
+.interests
+{
+    width: 220px;
+    margin-right:10px;
+
+}
+
+.form-check-input
+{
+    margin-left:40px;
+    margin-right:40px;
+    padding-left:10%;
+}
+
+ul,li
+{
+    list-style: none;
+    text-decoration: none;
+}
+
+#list
+{
+    margin-top:20px;
+}
+
+/* Layout for all next buttons*/
+.next
+{
+    text-align: right;
+    margin-left: 90%;
+}
+
