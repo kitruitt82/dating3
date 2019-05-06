@@ -89,10 +89,39 @@ $f3->route('GET|POST /profile', function($f3)
 
         //If data is valid
         if (validForm2()) {
-            $_SESSION['state']= $state;
-            $_SESSION['seeking']= $seeking;
-            $_SESSION['bio']= $bio;
             $_SESSION['email']= $email;
+            if(empty($email))
+            {
+                $_SESSION['email']= "Please enter an email address";
+
+            }
+            else{
+                $_SESSION['email']=$email;
+            }
+            if(empty($state))
+            {
+                $_SESSION['state']= "No state selection";
+            }
+            else{
+                $_SESSION['state']=$state;
+            }
+            if(empty($seeking))
+            {
+                $_SESSION['seeking']= "No selection was made";
+            }
+            else{
+                $_SESSION['seeking']= $seeking;
+            }
+            if(empty($bio))
+            {
+                $_SESSION['biography']= "Biography has not been entered yet";
+            }
+            else{
+                $_SESSION['biography']= $bio;
+            }
+
+
+
 
             $f3->reroute('/interests');
 
@@ -139,11 +168,12 @@ $f3->route('GET|POST /interests',function($f3)
                 $_SESSION['outdoor']=implode(", " , $outdoor);
 
             }
+            //go to next page
             $f3->reroute('/confirmation');
         }
 
     }
-    //go to next page
+
     $view = new Template();
     echo $view->render('views/interests.html');
 });
