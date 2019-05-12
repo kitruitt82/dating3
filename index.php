@@ -1,5 +1,4 @@
 <?php
-session_start();
 /*
 Kat Truitt
 IT328 Assignment Dating
@@ -13,6 +12,7 @@ error_reporting(E_ALL);
 
 //Require autoload file
 require_once('vendor/autoload.php');
+session_start();
 require_once('model/validation.php');
 
 //create an instance of the Base class
