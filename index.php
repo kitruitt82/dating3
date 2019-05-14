@@ -45,6 +45,7 @@ $f3->route('GET|POST /personal', function($f3)
         $gender = $_POST['gender'];
         $age = $_POST['age'];
         $tel= $_POST['phone'];
+        $premiumMember= $_POST['premium'];
 
         //add data to hive
         $f3->set('fname',$fn);
@@ -52,6 +53,7 @@ $f3->route('GET|POST /personal', function($f3)
         $f3->set('gender',$gender);
         $f3->set('age',$age);
         $f3->set('phone',$tel);
+        $f3->set('premium', $premiumMember);
 
         //If data is valid
         if (validForm1()) {
@@ -65,6 +67,16 @@ $f3->route('GET|POST /personal', function($f3)
             else {
                 $_SESSION['gender'] = $gender;
             }
+            if($premiumMember === 'premium')
+            {
+                $member = new PremiumMember($fn, $ln, $gender, $age, $tel);
+            }
+            else{
+                $member = new Member($fn, $ln, $gender, $age, $tel);
+            }
+
+            $_SESSION['premium'] = $member;
+
             $f3->reroute('/profile');
         }
     }
@@ -90,22 +102,9 @@ $f3->route('GET|POST /profile', function($f3)
 
         //If data is valid
         if (validForm2()) {
-            $_SESSION['email']= $email;
-            if(empty($email))
-            {
-                $_SESSION['email']= "Please enter an email address";
+            $_SESSION['email'] = $email;
+            $_SESSION['state'] = $state;
 
-            }
-            else{
-                $_SESSION['email']=$email;
-            }
-            if(empty($state))
-            {
-                $_SESSION['state']= "No state selection";
-            }
-            else{
-                $_SESSION['state']=$state;
-            }
             if(empty($seeking))
             {
                 $_SESSION['seeking']= "No selection was made";
@@ -120,8 +119,19 @@ $f3->route('GET|POST /profile', function($f3)
             else{
                 $_SESSION['biography']= $bio;
             }
+            $member = $_SESSION['member'];
+            $member->setEmail($email);
+            $member->setState($state);
+            $member->setSeeking($seeking);
+            $member->setBio($bio);
+            $_SESSION['member']=$member;
+            if($member instanceof PremiumMember) {
 
-            $f3->reroute('/interests');
+                $f3->reroute('/interests');
+            }
+            $_SESSION['member']->setIndoorInterests(['No indoor interests']);
+            $_SESSION['member']->setOutdoorInterests(['No outdoor interests']);
+            $f3->reroute('/confirmation');
 
         }
     }
@@ -155,7 +165,8 @@ $f3->route('GET|POST /interests',function($f3)
             {
                 $_SESSION['outdoor']=implode(", " , $outdoor);
             }
-
+            $_SESSION['member']-> setIndoorInterests($indoor);
+            $_SESSION['member']->setOutdoorInterests($outdoor);
             //go to next page
             $f3->reroute('/confirmation');
         }

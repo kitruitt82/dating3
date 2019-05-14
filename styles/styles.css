@@ -112,16 +112,17 @@ cite
 .container-fluid
 {
     border-color: #f0f0f0 !important;
-    padding:20px;
-    margin:20px;
+    padding:10px;
+    margin-top:10px;
 }
 
 
 /* form1.html styles and layout */
 .personalInformation
 {
-    margin:5px 5px 5px 25px;
-    padding:10px;
+    margin:5px 5px 5px 5px;
+    padding-left:10px;
+
 }
 
 .err
@@ -137,20 +138,39 @@ cite
     text-align: justify !important;
 
 }
+.col-sm-8
+{
+    padding-left:40px;
+}
+h2
+{
+    padding-left:30px;
+    margin-bottom:0;
+}
 
+.form-group
+{
+    margin-bottom:10px;
+}
 .card-body
 {
-    margin:35px 10px 10px 10px;
-    padding:10px;
+    width:75%;
+    margin-top:35px;
+    margin-left:40px;
+
+    padding-left:20px;
+
     text-align-last: center;
     background-color:gainsboro;
 }
 
 #next1
 {
-    margin-left:80%;
-    margin-top:65%;
+    width:75%;
+    margin-left:75%;
+    margin-top:60%;
 }
+
 
 /*Interest page layout*/
 .interestContainer
@@ -199,6 +219,6 @@ ul,li
 .next
 {
     text-align: right;
-    margin-left: 90%;
+    margin-left: 70%;
 }
 

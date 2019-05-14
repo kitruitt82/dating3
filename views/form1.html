@@ -29,73 +29,84 @@
 <div class="container-fluid">
     <div class="border rounded profile">
         <div class="personalInformation form-group row">
-            <h2>Personal Information</h2>
-            <hr class="my-4">
-                <form action="#" method="POST">
+            <div class="col-sm-12">
+                <h2>Personal Information</h2>
+                <hr>
+            </div>
+            <form class="row" action="#" method="POST">
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="fname">First Name</label>
+                            <input class="form-control" id="fname" type="text" name="fname" value="{{ @fname }}">
+                        <check if="{{ @errors['fname'] }}">
+                            <span class="err">{{ @errors['fname'] }}</span>
+                        </check><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="lname">Last Name</label>
+                        <input class="form-control" id="lname" type="text" name="lname" value="{{ @lname }}">
+                        <check if="{{ @errors['lname'] }}">
+                            <span class="err">{{ @errors['lname'] }}</span>
+                        </check><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input class="form-control" id="age" type="text" name="age" value="{{ @age }}">
+                        <check if=" {{ @errors['age'] }} ">
+                            <span class="err">{{ @errors['age'] }}</span>
+                        </check>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <check if="{{ @errors['gender'] }}">
+                            <span class="err">{{ @errors['gender'] }}</span>
+                        </check><br>
+
+                            <repeat group="{{ @genders }}" value="{{ @genderOption }}">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="{{ @genderOption }}" class="custom-control-input"
+                                           name="gender" value="{{ @genderOption }}"
+                                           <check if=" {{ @genderOption == @gender}}">
+                                                checked="checked"
+                                           </check>>
+                                    <label class="custom-control-label" for="{{ @genderOption }}">
+                                        {{ @genderOption }}</label>
+                                </div>
+                            </repeat>
+
+                    </div>
+                    <div class="form-group">
+                        <check if="{{ @errors['phone'] }}">
+                            <span class="err">{{ @errors['phone'] }}</span>
+                        </check><br>
+                        <label for="phone">Phone</label>
+                        <input class="form-control" type="tel" name="phone" id="phone" value="{{ @phone }}">
+                    </div>
+                    <label>Premium Membership</label>
                     <div class="row">
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <label for="fname">First Name</label>
-                                <input class="form-control" id="fname" type="text" name="fname" value="{{ @fname }}">
-                            <check if="{{ @errors['fname'] }}">
-                                <span class="err">{{ @errors['fname'] }}</span>
-                            </check><br>
+                        <div class="col-sm-10 form-check">
+                            <input id="premium" type="checkbox" name="premium" value="premium"
+                            <check if="{{ @premium === 'premium' }}">checked</check>>
+                            <label for="premium">Sign me up for a premium account!</label>
                         </div>
-                        <div class="form-group">
-                            <label for="lname">Last Name</label>
-                            <input class="form-control" id="lname" type="text" name="lname" value="{{ @lname }}">
-                            <check if="{{ @errors['lname'] }}">
-                                <span class="err">{{ @errors['lname'] }}</span>
-                            </check><br>
-                        </div>
-                        <div class="form-group">
-                            <label for="age">Age</label>
-                            <input class="form-control" id="age" type="text" name="age" value="{{ @age }}">
-                            <check if=" {{ @errors['age'] }} ">
-                                <span class="err">{{ @errors['age'] }}</span>
-                            </check>
-                        </div>
-                        <div class="form-group">
-                            <label>Gender</label>
-                            <check if="{{ @errors['gender'] }}">
-                                <span class="err">{{ @errors['gender'] }}</span>
-                            </check><br>
 
-                                <repeat group="{{ @genders }}" value="{{ @genderOption }}">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="{{ @genderOption }}" class="custom-control-input"
-                                               name="gender" value="{{ @genderOption }}"
-                                               <check if=" {{ @genderOption == @gender}}">
-                                                    checked="checked"
-                                               </check>>
-                                        <label class="custom-control-label" for="{{ @genderOption }}">
-                                            {{ @genderOption }}</label>
-                                    </div>
-                                </repeat>
+                    </div>
+                </div>
+                <div class="col-sm-4" id="privacy">
 
+                        <div class="card card-body">
+                            <p class="card-text"><strong>Note:</strong> All information entered is protected
+                                by our <a href="#">privacy policy</a>. Profile information
+                                can only be viewed by others
+                                with your permission.
+                            </p>
                         </div>
-                        <div class="form-group">
-                            <check if="{{ @errors['phone'] }}">
-                                <span class="err">{{ @errors['phone'] }}</span>
-                            </check><br>
-                            <label for="phone">Phone</label>
-                            <input class="form-control" type="tel" name="phone" id="phone" value="{{ @phone }}">
-                        </div>
+                    <div class="row" id="next1" >
+                        <input class="btn btn-primary" id="form1Button" type="submit" value="Next >" />
                     </div>
-                    <div class="col-sm-4">
-                        <div class="form-group row">
-                            <div class="card card-body">
-                                <p class="card-text"><strong>Note:</strong> All information entered is protected by our
-                                    <a href="#">privacy policy</a>. Profile information can only be viewed by others with
-                                    your permission</p>
-                            </div>
-                        </div>
-                        <div id="next1" class="form-group">
-                            <input class="btn btn-primary" type="submit" value="Next >" />
-                        </div>
-                    </div>
-                    </div>
-                </form>
+                </div>
+            </form>
         </div>
     </div>
 </div>
