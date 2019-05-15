@@ -1,18 +1,11 @@
 <?php
-/*
-Kat Truitt
-IT328 Assignment Dating
-April 19,2019
-index.php-> renders the routes functions, sessions and etc. for the dating websites
-*/
-
 //turn on error reporting
-ini_set('display_errors',1);
+ini_set('display_errors',true);
 error_reporting(E_ALL);
 
-//Require autoload file
 require_once('vendor/autoload.php');
 session_start();
+
 require_once('model/validation.php');
 
 //create an instance of the Base class
@@ -45,7 +38,7 @@ $f3->route('GET|POST /personal', function($f3)
         $gender = $_POST['gender'];
         $age = $_POST['age'];
         $tel= $_POST['phone'];
-        $premiumMember= $_POST['premium'];
+        $premiumOption = $_POST['premiumOption'];
 
         //add data to hive
         $f3->set('fname',$fn);
@@ -53,7 +46,7 @@ $f3->route('GET|POST /personal', function($f3)
         $f3->set('gender',$gender);
         $f3->set('age',$age);
         $f3->set('phone',$tel);
-        $f3->set('premium', $premiumMember);
+        $f3->set('premiumOption', $premiumOption);
 
         //If data is valid
         if (validForm1()) {
@@ -67,7 +60,7 @@ $f3->route('GET|POST /personal', function($f3)
             else {
                 $_SESSION['gender'] = $gender;
             }
-            if($premiumMember === 'premium')
+            if($premiumOption === "premium")
             {
                 $member = new PremiumMember($fn, $ln, $gender, $age, $tel);
             }
@@ -75,7 +68,8 @@ $f3->route('GET|POST /personal', function($f3)
                 $member = new Member($fn, $ln, $gender, $age, $tel);
             }
 
-            $_SESSION['premium'] = $member;
+            $_SESSION['member'] = $member;
+
 
             $f3->reroute('/profile');
         }
@@ -91,7 +85,7 @@ $f3->route('GET|POST /profile', function($f3)
     if(!empty($_POST)){
         $email = $_POST['email'];
         $state = $_POST['state'];
-        $seeking = $_POST['seeking'];
+        $seeking = $_POST['seekings'];
         $bio = $_POST['biography'];
 
         //add data to hive
@@ -127,12 +121,15 @@ $f3->route('GET|POST /profile', function($f3)
             $_SESSION['member']=$member;
             if($member instanceof PremiumMember) {
 
+
+                /* $_SESSION['member']->setIndoorInterests(["Not a premium member"]);
+                 $_SESSION['member']->setOutdoorInterests(["Not a premium member"]);*/
+
                 $f3->reroute('/interests');
             }
-            $_SESSION['member']->setIndoorInterests(['No indoor interests']);
-            $_SESSION['member']->setOutdoorInterests(['No outdoor interests']);
-            $f3->reroute('/confirmation');
-
+            else{
+                $f3->reroute('/confirmation');
+            }
         }
     }
     $view = new Template();
@@ -142,8 +139,8 @@ $f3->route('GET|POST /profile', function($f3)
 
 $f3->route('GET|POST /interests',function($f3)
 {
-    if(!empty($_POST))
-    {
+    if(!empty($_POST)){
+
         //get the data
         $outdoor = $_POST['outdoor'];
         $indoor = $_POST['indoor'];
@@ -153,21 +150,23 @@ $f3->route('GET|POST /interests',function($f3)
         $f3->set('indoor', $indoor);
 
         //If data is valid
-        if(validInterest())
-        {
-            echo "HEY!";
-            //add data to session
-            if(!empty($indoor)){
-                $_SESSION['indoor']=implode(", " , $indoor);
-            }
 
-            if(!empty($outdoor))
-            {
-                $_SESSION['outdoor']=implode(", " , $outdoor);
+        if (validInterest()) {
+            //Write data to Session
+            if (empty($indoor)) {
+                $_SESSION['indoor'] = ["no indoor interests"];
             }
-            $_SESSION['member']-> setIndoorInterests($indoor);
-            $_SESSION['member']->setOutdoorInterests($outdoor);
-            //go to next page
+            else {
+                $_SESSION['indoor'] = $indoor;
+            }
+            if (empty($outdoor)) {
+                $_SESSION['outdoor'] = ["no outdoor interests"];
+            }
+            else {
+                $_SESSION['outdoor'] = $outdoor;
+            }
+            $_SESSION['member']->setInDoorInterests($indoor);
+            $_SESSION['member']->setOutDoorInterests($outdoor);
             $f3->reroute('/confirmation');
         }
     }
@@ -182,5 +181,4 @@ $f3->route('GET /confirmation', function()
     $view = new Template();
     echo $view->render('views/summary.html');
 });
-//Run Fat-free
 $f3->run();

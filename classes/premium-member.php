@@ -35,12 +35,12 @@ class PremiumMember extends Member
 
     /**
      * Sets the PremiumMember indoor interests
-     * @param mixed $indoorInterests Premium Member indoor interests
+     * @param mixed $indoor Premium Member indoor interests
      * @return void
      */
-    public function setIndoorInterests($indoorInterests)
+    public function setIndoorInterests($indoor)
     {
-        $this->_indoorInterests = $indoorInterests;
+        $this->_indoorInterests = $indoor;
     }
 
     /**
@@ -54,11 +54,11 @@ class PremiumMember extends Member
 
     /**
      * Sets the PremiumMember outdoor interests
-     * @param mixed $outdoorInterests Premium Member outdoor interests
+     * @param mixed $outdoor Premium Member outdoor interests
      * @return void
      */
-    public function setOutdoorInterests($outdoorInterests)
+    public function setOutdoorInterests($outdoor)
     {
-        $this->_outdoorInterests = $outdoorInterests;
+        $this->_outdoorInterests = $outdoor;
     }
 }

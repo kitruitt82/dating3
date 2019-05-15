@@ -100,16 +100,16 @@ function validPhone($tel)
 function validEmail($email)
 {
 
-    return !empty($email) && FILTER_VALIDATE_EMAIL;
+    return filter_var($email,FILTER_VALIDATE_EMAIL);
 
 }
 
 function validIndoorInterest($indoor)
 {
     global $f3;
-   if(empty($indoor))
+    if(empty($indoor))
     {
-        echo "im here";
+        //echo "im here";
         return true;
     }
     foreach($indoor as $interest)
@@ -128,7 +128,7 @@ function validOutdoorInterest($outdoor)
 
     if(empty($outdoor))
     {
-        echo "im here";
+       // echo "im here";
         return true;
     }
     foreach($outdoor as $interest)

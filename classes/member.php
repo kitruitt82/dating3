@@ -29,7 +29,7 @@ class Member
      * @param $phone Member phone number of the Member
      * @return void
      */
-    function __construct($fname,$lname,$age,$gender,$phone)
+    public function __construct($fname,$lname,$age,$gender,$phone)
     {
         $this->_fname = $fname;
         $this->_lname = $lname;
@@ -144,7 +144,7 @@ class Member
 
     /**
      * Sets the Member email address
-     * @param mixed $email Member email adress
+     * @param mixed $email Member email address
      * @return void
      */
     public function setEmail($email)
