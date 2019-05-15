@@ -49,12 +49,12 @@ class Member
 
     /**
      * Sets the first name of the Member
-     * @param Member $fn the Member's first name
+     * @param Member $fname the Member's first name
      * @return void
      */
-    public function setFname($fn)
+    public function setFname($fname)
     {
-        $this->_fname = $fn;
+        $this->_fname = $fname;
     }
 
     /**
@@ -68,12 +68,12 @@ class Member
 
     /**
      * Sets the Member last name
-     * @param Member $ln the Member's last name
+     * @param Member $lname the Member's last name
      * @return void
      */
-    public function setLname($ln)
+    public function setLname($lname)
     {
-        $this->_lname = $ln;
+        $this->_lname = $lname;
     }
 
     /**
@@ -125,12 +125,12 @@ class Member
 
     /**
      * Sets the Member phone number
-     * @param Member $tel phone number
+     * @param Member $phone phone number
      * @return void
      */
-    public function setPhone($tel)
+    public function setPhone($phone)
     {
-        $this->_phone = $tel;
+        $this->_phone = $phone;
     }
 
     /**
