@@ -44,7 +44,7 @@
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" id="{{ @indoorInterest }}" type="checkbox" name="indoor[]"
                                value="{{@indoorInterest}}"
-                        <check if="{{ !empty(@indoorInterest) && in_array($_POST['indoor'] , @indoorValid) }}">
+                        <check if="{{ !empty(@indoorInterest) && in_array( $_POST['indoor'] , @indoorValid) }}">
                             checked="checked"
                         </check>>
                         <label class="interests form-check-label" for="{{ @indoorInterest }}">{{ trim(@indoorInterest) }}</label>
@@ -60,7 +60,7 @@
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" id="{{ @outdoorInterest }}" type="checkbox" name="outdoor[]"
                         value="{{ @outdoorInterest  }}"
-                        <check if="{{ !empty(@outdoorInterest) && in_array($_POST['outdoor'] , @outdoorValid) }}">
+                        <check if="{{ !empty(@outdoorInterest) && in_array($_POST['outdoor'], @outdoorValid) }}">
                             checked="checked"
                         </check>>
                         <label class="interests form-check-label " for="{{ @outdoorInterest }}">{{ trim( @outdoorInterest ) }}</label>

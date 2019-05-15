@@ -1,10 +1,10 @@
 <?php
+require_once('vendor/autoload.php');
+session_start();
+
 //turn on error reporting
 ini_set('display_errors',true);
 error_reporting(E_ALL);
-
-require_once('vendor/autoload.php');
-session_start();
 
 require_once('model/validation.php');
 
@@ -15,13 +15,14 @@ $f3->config('config.ini');
 //Define a default root
 $f3->route('GET /', function()
 {
+    session_destroy();
     $view = new Template();
     echo $view->render('views/home.html');
 });
 
 $f3->route('GET /home', function()
 {
-    $_SESSION = [];
+   session_destroy();
     $view = new Template();
     echo $view->render('views/home.html');
 
@@ -39,6 +40,7 @@ $f3->route('GET|POST /personal', function($f3)
         $age = $_POST['age'];
         $tel= $_POST['phone'];
         $premiumOption = $_POST['premiumOption'];
+        $member=null;
 
         //add data to hive
         $f3->set('fname',$fn);
@@ -48,19 +50,21 @@ $f3->route('GET|POST /personal', function($f3)
         $f3->set('phone',$tel);
         $f3->set('premiumOption', $premiumOption);
 
+
         //If data is valid
         if (validForm1()) {
             $_SESSION['fname']= $fn;
             $_SESSION['lname']= $ln;
             $_SESSION['age']= $age;
             $_SESSION['phone'] = $tel;
+            $_SESSION['premiumOption']= $premiumOption;
             if (empty($gender)) {
                 $_SESSION['gender'] = "Please select a gender";
             }
             else {
                 $_SESSION['gender'] = $gender;
             }
-            if($premiumOption === "premium")
+            if(!empty($premiumOption))
             {
                 $member = new PremiumMember($fn, $ln, $gender, $age, $tel);
             }
@@ -87,6 +91,7 @@ $f3->route('GET|POST /profile', function($f3)
         $state = $_POST['state'];
         $seeking = $_POST['seekings'];
         $bio = $_POST['biography'];
+        $member=null;
 
         //add data to hive
         $f3->set('email',$email);
@@ -122,12 +127,11 @@ $f3->route('GET|POST /profile', function($f3)
             if($member instanceof PremiumMember) {
 
 
-                /* $_SESSION['member']->setIndoorInterests(["Not a premium member"]);
-                 $_SESSION['member']->setOutdoorInterests(["Not a premium member"]);*/
-
                 $f3->reroute('/interests');
             }
             else{
+                 //$_SESSION['member']->setIndoorInterests(["Not a premium member"]);
+                 //$_SESSION['member']->setOutdoorInterests(["Not a premium member"]);
                 $f3->reroute('/confirmation');
             }
         }
@@ -139,6 +143,7 @@ $f3->route('GET|POST /profile', function($f3)
 
 $f3->route('GET|POST /interests',function($f3)
 {
+    $member=null;
     if(!empty($_POST)){
 
         //get the data
@@ -165,8 +170,9 @@ $f3->route('GET|POST /interests',function($f3)
             else {
                 $_SESSION['outdoor'] = $outdoor;
             }
-            $_SESSION['member']->setInDoorInterests($indoor);
-            $_SESSION['member']->setOutDoorInterests($outdoor);
+            $member=$_SESSION['member'];
+            $member->setInDoorInterests($indoor);
+            $member->setOutDoorInterests($outdoor);
             $f3->reroute('/confirmation');
         }
     }
@@ -175,8 +181,31 @@ $f3->route('GET|POST /interests',function($f3)
     echo $view->render('views/interests.html');
 });
 
-$f3->route('GET /confirmation', function()
+$f3->route('GET /confirmation', function($f3)
 {
+    $member = null;
+
+    $member=$_SESSION['member'];
+
+    $interests=null;
+    if($member instanceof PremiumMember){
+        if(!count($member->getOutdoorInterests())==0 && count($member->getIndoorInterests())==0){
+            $chosenInterests = $member->getOutdoorInterests();
+        }
+        elseif(!count($member->getIndoorInterests())==0 && count($member->getOutdoorInterests())==0){
+            $chosenInterests = $member->getIndoorInterests();
+        }
+        elseif(count($member->getIndoorInterests())==0 && count($member->getOutdoorInterests())==0){
+            $chosenInterests=[];
+        }
+        else{
+            $chosenInterests = array_merge($member->getIndoorInterests(),$member->getOutdoorInterests());
+        }
+        $interests= implode(' , ' ,$chosenInterests);
+    }
+    $_SESSION['interests'] = $interests;
+
+    $f3->set('member',$member);
     //display form data
     $view = new Template();
     echo $view->render('views/summary.html');

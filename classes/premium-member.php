@@ -12,16 +12,16 @@ class PremiumMember extends Member
 
     /**
      * Parameterized constructor for a PremiumMember
-     * @param $fname PremiumMember first name
-     * @param $lname PremiumMember last name
+     * @param $fn PremiumMember first name
+     * @param $ln PremiumMember last name
      * @param $age PremiumMember age
      * @param $gender PremiumMember gender
-     * @param $phone PremiumMember phone number
+     * @param $tel PremiumMember phone number
      * @return void
      */
-    public function __construct($fname, $lname, $age, $gender, $phone)
+    public function __construct($fn, $ln, $age, $gender, $tel)
     {
-        parent::__construct($fname, $lname, $age, $gender, $phone);
+        parent::__construct($fn, $ln, $age, $gender, $tel);
     }
 
     /**
