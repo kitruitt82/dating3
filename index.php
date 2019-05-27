@@ -38,8 +38,8 @@ $f3->route('GET|POST /personal', function($f3)
         //get data from form
         $fn= $_POST['fname'];
         $ln= $_POST['lname'];
-        $gender = $_POST['gender'];
         $age = $_POST['age'];
+        $gender = $_POST['gender'];
         $phone= $_POST['phone'];
         $membership = $_POST['membership'];
         //$member= null;
@@ -47,8 +47,8 @@ $f3->route('GET|POST /personal', function($f3)
         //add data to hive
         $f3->set('fname',$fn);
         $f3->set('lname',$ln);
-        $f3->set('gender',$gender);
         $f3->set('age',$age);
+        $f3->set('gender',$gender);
         $f3->set('phone',$phone);
         $f3->set('membership', $membership);
 
@@ -57,6 +57,7 @@ $f3->route('GET|POST /personal', function($f3)
         if (validForm1()) {
             $_SESSION['fname']= $fn;
             $_SESSION['lname']= $ln;
+            $_SESSION['age']= $age;
 
             if (empty($gender)) {
                 $_SESSION['gender'] = "Please select a gender";
@@ -64,7 +65,7 @@ $f3->route('GET|POST /personal', function($f3)
             else {
                 $_SESSION['gender'] = $gender;
             }
-            $_SESSION['age']= $age;
+
             $_SESSION['phone'] = $phone;
             $_SESSION['membership']= $membership;
             if(!empty($membership))
@@ -218,7 +219,7 @@ $f3->route('GET /confirmation', function($f3)
 });
 
 //Define a route for admin to view all members
-$f3->route('GET /members', function($f3) {
+$f3->route('GET|POST /admin', function($f3) {
 
     global $db;
     $members = $db->getMembers();
