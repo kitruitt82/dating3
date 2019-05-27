@@ -71,14 +71,14 @@ function validInterest()
     return $isValid;
 }
 
-function validFName($fn)
+function validFName($fname)
 {
-    return !empty($fn) && ctype_alpha($fn);
+    return !empty($fname) && ctype_alpha($fname);
 }
 
-function validLName($ln)
+function validLName($lname)
 {
-    return !empty($ln) && ctype_alpha($ln);
+    return !empty($lname) && ctype_alpha($lname);
 }
 
 function validGender($gender)
@@ -93,9 +93,9 @@ function validAge($age)
     return !empty($age) && ctype_digit($age) && (int)$age>=18 && (int) $age<=118;
 }
 
-function validPhone($tel)
+function validPhone($phone)
 {
-    return !empty($tel) && is_numeric($tel) && strlen($tel)===10 ;
+    return !empty($phone) && is_numeric($phone) && strlen($phone)===10 ;
 }
 function validEmail($email)
 {

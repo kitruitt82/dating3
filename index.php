@@ -12,6 +12,7 @@ require_once('model/validation.php');
 $f3 = Base::instance();
 $f3->config('config.ini');
 
+
 //Define a default root
 $f3->route('GET /', function()
 {
@@ -28,6 +29,7 @@ $f3->route('GET /home', function()
 
 });
 
+$db = new Database();
 $f3->route('GET|POST /personal', function($f3)
 {
     //if post array is not empty
@@ -38,38 +40,39 @@ $f3->route('GET|POST /personal', function($f3)
         $ln= $_POST['lname'];
         $gender = $_POST['gender'];
         $age = $_POST['age'];
-        $tel= $_POST['phone'];
-        $premiumOption = $_POST['premiumOption'];
-        $member=null;
+        $phone= $_POST['phone'];
+        $membership = $_POST['membership'];
+        //$member= null;
 
         //add data to hive
         $f3->set('fname',$fn);
         $f3->set('lname',$ln);
         $f3->set('gender',$gender);
         $f3->set('age',$age);
-        $f3->set('phone',$tel);
-        $f3->set('premiumOption', $premiumOption);
+        $f3->set('phone',$phone);
+        $f3->set('membership', $membership);
 
 
         //If data is valid
         if (validForm1()) {
             $_SESSION['fname']= $fn;
             $_SESSION['lname']= $ln;
-            $_SESSION['age']= $age;
-            $_SESSION['phone'] = $tel;
-            $_SESSION['premiumOption']= $premiumOption;
+
             if (empty($gender)) {
                 $_SESSION['gender'] = "Please select a gender";
             }
             else {
                 $_SESSION['gender'] = $gender;
             }
-            if(!empty($premiumOption))
+            $_SESSION['age']= $age;
+            $_SESSION['phone'] = $phone;
+            $_SESSION['membership']= $membership;
+            if(!empty($membership))
             {
-                $member = new PremiumMember($fn, $ln, $gender, $age, $tel);
+                $member = new PremiumMember($fn, $ln, $gender, $age, $phone);
             }
             else{
-                $member = new Member($fn, $ln, $gender, $age, $tel);
+                $member = new Member($fn, $ln, $gender, $age, $phone);
             }
 
             $_SESSION['member'] = $member;
@@ -91,7 +94,7 @@ $f3->route('GET|POST /profile', function($f3)
         $state = $_POST['state'];
         $seeking = $_POST['seekings'];
         $bio = $_POST['biography'];
-        $member=null;
+        //$member =null;
 
         //add data to hive
         $f3->set('email',$email);
@@ -143,7 +146,7 @@ $f3->route('GET|POST /profile', function($f3)
 
 $f3->route('GET|POST /interests',function($f3)
 {
-    $member=null;
+    //$member=null;
     if(!empty($_POST)){
 
         //get the data
@@ -183,7 +186,7 @@ $f3->route('GET|POST /interests',function($f3)
 
 $f3->route('GET /confirmation', function($f3)
 {
-    $member = null;
+    //$member = null;
 
     $member=$_SESSION['member'];
 
@@ -206,8 +209,24 @@ $f3->route('GET /confirmation', function($f3)
     $_SESSION['interests'] = $interests;
 
     $f3->set('member',$member);
+    global $db;
+    $db->insertMember();
+
     //display form data
     $view = new Template();
     echo $view->render('views/summary.html');
+});
+
+//Define a route for admin to view all members
+$f3->route('GET /members', function($f3) {
+
+    global $db;
+    $members = $db->getMembers();
+    $f3->set('members', $members);
+
+    //print_r($members);
+    //load a template
+    $template = new Template();
+    echo $template->render('views/all-members.html');
 });
 $f3->run();
